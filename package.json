@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon --ignore coverage index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.21.3",
     "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }

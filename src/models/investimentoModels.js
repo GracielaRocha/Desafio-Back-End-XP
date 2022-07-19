@@ -16,6 +16,14 @@ const createBuy = async (codCliente, codAtivo, qtdeAtivo) => {
   return compraAtivo;
 }
 
+const createSell = async (codCliente, codAtivo, qtdeAtivo) => {
+  const query = 'INSERT INTO operacoes_ativos (codCliente, codAtivo, qtdeAtivo) VALUES(?, ?, ?)';
+
+  const [vendaAtivo] = await connection.execute(query, [codCliente, codAtivo, qtdeAtivo]);
+
+  return vendaAtivo;
+}
+
 // const getAll = async () => {
 //   const [ativos] = await connection.execute('SELECT * FROM ativos;');
 
@@ -29,4 +37,5 @@ const createBuy = async (codCliente, codAtivo, qtdeAtivo) => {
 module.exports = {
   findByCod, 
   createBuy,
+  createSell,
 }

@@ -16,6 +16,14 @@ const createBuy = async (codCliente, codAtivo, qtdeAtivo) => {
   return compraAtivo;
 }
 
+const findByClient = async (codCliente) => {
+  const query = 'SELECT * FROM operacoes_ativos WHERE codCliente=?;';
+
+  const [[cliente]] = await connection.execute(query, [codCliente]);
+
+  return cliente;
+};
+
 const createSell = async (codCliente, codAtivo, qtdeAtivo) => {
   const query = 'INSERT INTO operacoes_ativos (codCliente, codAtivo, qtdeAtivo) VALUES(?, ?, ?)';
 
@@ -37,5 +45,6 @@ const createSell = async (codCliente, codAtivo, qtdeAtivo) => {
 module.exports = {
   findByCod, 
   createBuy,
+  findByClient,
   createSell,
 }

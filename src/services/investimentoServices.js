@@ -28,6 +28,17 @@ const findByClient = async (codCliente) => {
 
   return cliente;
 }
+
+const createSell = async (codCliente, codAtivo, qtdeAtivo) => {
+  const cliente = await ativosModels.findByClient(codCliente);
+  console.log(ativo);
+
+  if (cliente.qtdeAtivo < qtdeAtivo) return null;
+
+  const vendaAtivo = await ativosModels.createSell(codCliente, codAtivo, qtdeAtivo);
+
+  return vendaAtivo;
+}
 // createBuy({
 //   codCliente: 1,
 //   codAtivo: 2,
@@ -38,4 +49,5 @@ module.exports = {
   findByCod,
   createBuy,
   findByClient,
+  createSell,
 }

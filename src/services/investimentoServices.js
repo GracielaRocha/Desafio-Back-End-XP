@@ -20,6 +20,14 @@ const createBuy = async (codCliente, codAtivo, qtdeAtivo) => {
 
   return compraAtivo;
 }
+
+const findByClient = async (codCliente) => {
+  const cliente = await ativosModels.findByClient(codCliente);
+
+  if (!cliente) return null;
+
+  return cliente;
+}
 // createBuy({
 //   codCliente: 1,
 //   codAtivo: 2,
@@ -29,4 +37,5 @@ const createBuy = async (codCliente, codAtivo, qtdeAtivo) => {
 module.exports = {
   findByCod,
   createBuy,
+  findByClient,
 }

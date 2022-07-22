@@ -3,11 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 const investimento = require('./controllers/investimentoController');
+const validateValor = require('./middleware/validateValor');
 
 router.get('/ativos/:codAtivo', investimento.findByCod);
-router.get('/ativos/:codCliente', investimento.findByClient);
+router.get('/clientes/:codCliente', investimento.findByClient);
+router.get('/conta/:codCliente', investimento.getBalance);
+// router.post('/investimentos/comprar', investimento.createBuy);
+// router.post('/investimentos/vender', investimento.createSell);
 
-router.post('/investimentos/comprar', investimento.createBuy);
-router.post('/investimentos/comprar', investimento.createSell);
+router.put('/conta/saque/:codCliente', validateValor, investimento.updateSaque);
+router.put('/conta/deposito/:codCliente', validateValor, investimento.updateDeposito);
 
 module.exports = router;

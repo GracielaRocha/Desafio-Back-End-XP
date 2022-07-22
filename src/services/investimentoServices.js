@@ -10,17 +10,6 @@ const findByCod = async (codAtivo) => {
   return ativo;
 }
 
-const createBuy = async (codCliente, codAtivo, qtdeAtivo) => {
-  const ativo = await ativosModels.findByCod(codAtivo);
-  console.log(ativo);
-
-  if (ativo.quantity < qtdeAtivo) return null;
-
-  const compraAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo);
-
-  return compraAtivo;
-}
-
 const findByClient = async (codCliente) => {
   const cliente = await ativosModels.findByClient(codCliente);
 
@@ -29,25 +18,73 @@ const findByClient = async (codCliente) => {
   return cliente;
 }
 
-const createSell = async (codCliente, codAtivo, qtdeAtivo) => {
-  const cliente = await ativosModels.findByClient(codCliente);
-  console.log(ativo);
+// const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
+//   const ativo = await ativosModels.findByCod(codAtivo);
 
-  if (cliente.qtdeAtivo < qtdeAtivo) return null;
+//   if (ativo.quantity < qtdeAtivo) return null;
 
-  const vendaAtivo = await ativosModels.createSell(codCliente, codAtivo, qtdeAtivo);
+//   // const compraAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+//   const comprarAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+  
+//   return comprarAtivo;
+// }
 
-  return vendaAtivo;
-}
+// const updateClient = async (idCarteira, { qtdeAtivo }) => {
+//   const compraAtivo = await createBuy();
+
+//   const found = await ativosModels.updateClient(idCarteira);
+  
+//   if (!found) return null;
+//   return { 
+//    idCarteira,
+//    qtdeAtivo: found.qtdeAtivo - quantity,
+//   };
+// };
+
+// const createSell = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
+//   const cliente = await ativosModels.findByClient(codCliente);
+
+//   if (cliente.qtdeAtivo < qtdeAtivo) return null;
+
+//   const vendaAtivo = await ativosModels.createSell(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+
+//   return vendaAtivo;
+// }
 // createBuy({
 //   codCliente: 1,
 //   codAtivo: 2,
 //   qtdeAtivo: 100
 // });
 
+const getBalance = async (codCliente) => {
+  const salCliente = await ativosModels.getBalance(codCliente);
+
+  return salCliente;
+}
+
+const updateSaque = async (codCliente, valor) => {
+  const [saldo] = await getBalance(codCliente);
+  // console.log('saldo service', saldo);
+  if (saldo.saldo < valor) return null;
+
+  const saque = await ativosModels.updateSaque(codCliente, valor);
+
+  return saque;
+}
+
+const updateDeposito = async (codCliente, valor) => {
+  const deposito = await ativosModels.updateDeposito(codCliente, valor);
+
+  return deposito;
+}
+
 module.exports = {
   findByCod,
-  createBuy,
+  // createBuy,
   findByClient,
-  createSell,
+  // createSell,
+  // updateClient,
+  getBalance,
+  updateSaque,
+  updateDeposito,
 }

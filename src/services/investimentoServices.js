@@ -1,7 +1,5 @@
 const ativosModels = require('../models/investimentoModels');
 
-// const getAll = async () => buyAssetsModel.getAll();
-
 const findByCod = async (codAtivo) => {
   const ativo = await ativosModels.findByCod(codAtivo);
 
@@ -18,16 +16,22 @@ const findByClient = async (codCliente) => {
   return cliente;
 }
 
-// const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
-//   const ativo = await ativosModels.findByCod(codAtivo);
+const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
+  const ativo = await ativosModels.findByCod(codAtivo);
+  console.log(ativo);
 
-//   if (ativo.quantity < qtdeAtivo) return null;
-
-//   // const compraAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
-//   const comprarAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+  if (ativo.quantity < qtdeAtivo) return null;
+ // const compraAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+  const comprarAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
   
-//   return comprarAtivo;
-// }
+  return comprarAtivo;
+}
+
+const updateAssest = async (codAtivo, newQuantity, valorAtivo) => {
+  const ativo = await ativosModels.updateAssest(codAtivo, newQuantity, valorAtivo);
+
+  return ativo;
+}
 
 // const updateClient = async (idCarteira, { qtdeAtivo }) => {
 //   const compraAtivo = await createBuy();
@@ -80,10 +84,10 @@ const updateDeposito = async (codCliente, valor) => {
 
 module.exports = {
   findByCod,
-  // createBuy,
+  createBuy,
   findByClient,
   // createSell,
-  // updateClient,
+  updateAssest,
   getBalance,
   updateSaque,
   updateDeposito,

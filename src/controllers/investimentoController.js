@@ -11,18 +11,27 @@ const findByCod = async (req, res) => {
     return res.status(200).json(ativo);
 }
 
-// const createBuy = async (req, res) => {
-//   const { codCliente, codAtivo, qtdeAtivo, valorAtivo } = req.body;
-//   // console.log('console controller createBuy', req.body);
+const createBuy = async (req, res) => {
+  const { codCliente, codAtivo, qtdeAtivo, valorAtivo } = req.body;
+  // console.log('console controller createBuy', req.body);
 
-//   const create = await ativosServices.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
-//   // console.log('console controller create', create);
-//   if (create === null) {
-//     return res.status(404).json({ message: 'Quantidade de ativo a ser comprado maior que a quantidade disponível'});
-//   }
-//     return res.status(201).json({ message: 'Compra realizada com sucesso' });
+  const create = await ativosServices.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+  // console.log('console controller create', create);
+  if (create === null) {
+    return res.status(404).json({ message: 'Quantidade de ativo a ser comprado maior que a quantidade disponível'});
+  }
+    return res.status(201).json({ message: 'Compra realizada com sucesso' });
 
-// }
+}
+
+const updateAssest = async (req, res) => {
+  const { codAtivo } = req.params;
+  const { newQuantity, valorAtivo } = req.body;
+ 
+  await ativosServices.updateAssest(codAtivo, newQuantity, valorAtivo);
+
+  return res.status(200).json({ message: 'Quantidade do ativo alterado com sucesso' });
+}
 
 const findByClient = async (req, res) => {
   const { codCliente } = req.params;
@@ -56,11 +65,6 @@ const findByClient = async (req, res) => {
 
 //   return res.status(201).json(create);
 // }
-// createBuyActive({
-//   codCliente: 1,
-//   codAtivo: 2,
-//   qtdeAtivo: 100
-// });
 
 const getBalance = async (req, res) => {
   const { codCliente } = req.params;
@@ -93,8 +97,9 @@ const updateDeposito = async (req, res) => {
 
 module.exports = {
   findByCod,
-  // createBuy,
+  createBuy,
   findByClient,
+  updateAssest,
   // createSell,
   // updateClient,
   getBalance,

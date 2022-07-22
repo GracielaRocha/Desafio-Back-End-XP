@@ -10,13 +10,13 @@ const findByCod = async (codAtivo) => {
   return ativo;
 };
 
-// const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
-//   const query = 'INSERT INTO carteiraDigital.carteira_cliente (cliente_id, ativo_id, qtdeAtivo, valorAtivo) VALUES(?, ?, ?, ?)';
+const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
+  const query = 'INSERT INTO carteiraDigital.carteira_cliente (cliente_id, ativo_id, qtdeAtivo, valorAtivo) VALUES(?, ?, ?, ?)';
 
-//   const [compraAtivo] = await connection.execute(query, [codCliente, codAtivo, qtdeAtivo, valorAtivo]);
-//   // console.log('console models compraAtivo', compraAtivo);
-//   return compraAtivo;
-// }
+  const [compraAtivo] = await connection.execute(query, [codCliente, codAtivo, qtdeAtivo, valorAtivo]);
+  // console.log('console models compraAtivo', compraAtivo);
+  return compraAtivo;
+}
 
 const findByClient = async (codCliente) => {
   const query = 'SELECT * FROM carteiraDigital.carteira_cliente WHERE cliente_id=?;';
@@ -35,13 +35,13 @@ const findByClient = async (codCliente) => {
 //   return cliente;
 // }
 
-// const updateAssest = async (codAtivo, quantity, valorAtivo) => {
-//   const query = 'UPDATE carteiraDigital.ativos SET quantity = ?, valorAtivo = ? WHERE codAtivo=?';
+const updateAssest = async (codAtivo, newQuantity, valorAtivo) => {
+  const query = 'UPDATE carteiraDigital.ativos SET quantity = quantity - ?, valorAtivo = ? WHERE codAtivo=?';
   
-//   const [ativo] = await connection.execute(query, [quantity, valorAtivo, codAtivo]);
+  const [ativo] = await connection.execute(query, [newQuantity, valorAtivo, codAtivo]);
   
-//   return ativo;
-// }
+  return ativo;
+}
 
 // const createSell = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
 //   const query = 'INSERT INTO carteiraDigital.carteira_cliente (codCliente, codAtivo, qtdeAtivo, valorAtivo) VALUES(?, ?, ?)';
@@ -92,11 +92,11 @@ const updateDeposito = async (codCliente, valor) => {
 
 module.exports = {
   findByCod, 
-  // createBuy,
+  createBuy,
   findByClient,
   // createSell,
   // updateClient,
-  // updateAssest,
+  updateAssest,
   getBalance,
   updateSaque,
   updateDeposito,

@@ -9,8 +9,8 @@ router.get('/ativos/:codAtivo', investimento.findByCod);
 router.get('/clientes/:codCliente', investimento.findByClient);
 router.get('/conta/:codCliente', investimento.getBalance);
 router.post('/investimentos/comprar', investimento.createBuy);
-// router.post('/investimentos/vender', investimento.createSell);
 
+router.put('/investimentos/vender/:idCarteira', investimento.putVender);
 router.put('/conta/saque/:codCliente', validateValor, investimento.editSaldo);
 router.put('/conta/deposito/:codCliente', validateValor, investimento.updateDeposito);
 router.put('/conta/ativo/:codAtivo', investimento.updateAssest);

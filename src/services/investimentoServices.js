@@ -45,20 +45,15 @@ const updateAssest = async (codAtivo, newQuantity, valorAtivo) => {
 //   };
 // };
 
-// const createSell = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
-//   const cliente = await ativosModels.findByClient(codCliente);
+const putVender = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo) => {
+  const [qtAtivos] = await findByClient(codCliente);
+  console.log(qtAtivos);
+  if (qtAtivos.qtdeAtivo < qtVendida) return null;
+  
+  const venderAtivo = await ativosModels.putVender(idCarteira, codCliente, codAtivo, qtVendida, valorAtivo);
 
-//   if (cliente.qtdeAtivo < qtdeAtivo) return null;
-
-//   const vendaAtivo = await ativosModels.createSell(codCliente, codAtivo, qtdeAtivo, valorAtivo);
-
-//   return vendaAtivo;
-// }
-// createBuy({
-//   codCliente: 1,
-//   codAtivo: 2,
-//   qtdeAtivo: 100
-// });
+  return venderAtivo;
+};
 
 const getBalance = async (codCliente) => {
   const salCliente = await ativosModels.getBalance(codCliente);
@@ -86,7 +81,7 @@ module.exports = {
   findByCod,
   createBuy,
   findByClient,
-  // createSell,
+  putVender,
   updateAssest,
   getBalance,
   editSaldo,

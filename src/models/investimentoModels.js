@@ -35,20 +35,28 @@ const findByClient = async (codCliente) => {
 //   return cliente;
 // }
 
-const updateAssest = async (codAtivo, newQuantity, valorAtivo) => {
-  const query = 'UPDATE carteiraDigital.ativos SET quantity = quantity - ?, valorAtivo = ? WHERE codAtivo=?';
-  
-  const [ativo] = await connection.execute(query, [newQuantity, valorAtivo, codAtivo]);
-  
-  return ativo;
-}
-
 const putVender = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo) => {
   const query = 'UPDATE carteiraDigital.carteira_cliente SET cliente_id = ?, ativo_id = ?, qtdeAtivo = qtdeAtivo - ?, valorAtivo = ? WHERE idCarteira=?';
 
   const [venderAtivo] = await connection.execute(query, [codCliente, codAtivo, qtVendida, valorAtivo, idCarteira]);
 
   return venderAtivo;
+}
+
+const putSubAtivo = async (codAtivo, newQuantity, valorAtivo) => {
+  const query = 'UPDATE carteiraDigital.ativos SET quantity = quantity - ?, valorAtivo = ? WHERE codAtivo=?';
+  
+  const [subAtivo] = await connection.execute(query, [newQuantity, valorAtivo, codAtivo]);
+  
+  return subAtivo;
+}
+
+const putAdiAtivo = async (codAtivo, newQuantity, valorAtivo) => {
+  const query = 'UPDATE carteiraDigital.ativos SET quantity = quantity + ?, valorAtivo = ? WHERE codAtivo=?';
+  
+  const [adiAtivo] = await connection.execute(query, [newQuantity, valorAtivo, codAtivo]);
+  
+  return adiAtivo;
 }
 
 // const getBalance = async (codCliente) => {
@@ -95,8 +103,8 @@ module.exports = {
   createBuy,
   findByClient,
   putVender,
-  // updateClient,
-  updateAssest,
+  putAdiAtivo,
+  putSubAtivo,
   getBalance,
   editSaldo,
   updateDeposito,

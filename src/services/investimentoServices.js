@@ -27,12 +27,6 @@ const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
   return comprarAtivo;
 }
 
-const updateAssest = async (codAtivo, newQuantity, valorAtivo) => {
-  const ativo = await ativosModels.updateAssest(codAtivo, newQuantity, valorAtivo);
-
-  return ativo;
-}
-
 // const updateClient = async (idCarteira, { qtdeAtivo }) => {
 //   const compraAtivo = await createBuy();
 
@@ -55,11 +49,19 @@ const putVender = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo
   return venderAtivo;
 };
 
+const putSubAtivo = async (codAtivo, newQuantity, valorAtivo) => {
+  return await ativosModels.putSubAtivo(codAtivo, newQuantity, valorAtivo);
+};
+
+const putAdiAtivo = async (codAtivo, newQuantity, valorAtivo) => {
+  return await ativosModels.putAdiAtivo(codAtivo, newQuantity, valorAtivo);
+};
+
 const getBalance = async (codCliente) => {
   const salCliente = await ativosModels.getBalance(codCliente);
 
   return salCliente;
-}
+};
 
 const editSaldo = async (codCliente, valor) => {
   const [saldo] = await getBalance(codCliente);
@@ -69,20 +71,21 @@ const editSaldo = async (codCliente, valor) => {
   const saldoAlt = await ativosModels.editSaldo(codCliente, valor);
 
   return saldoAlt;
-}
+};
 
 const updateDeposito = async (codCliente, valor) => {
   const deposito = await ativosModels.updateDeposito(codCliente, valor);
 
   return deposito;
-}
+};
 
 module.exports = {
   findByCod,
   createBuy,
   findByClient,
   putVender,
-  updateAssest,
+  putSubAtivo,
+  putAdiAtivo,
   getBalance,
   editSaldo,
   updateDeposito,

@@ -74,12 +74,12 @@ const getBalance = async (codCliente) => {
   return salCliente;
 }
 
-const updateSaque = async (codCliente, valor) => {
+const editSaldo = async (codCliente, valor) => {
   const query = 'UPDATE carteiraDigital.conta_cliente SET saldo = saldo - ? WHERE cliente_id=?;';
   
-  const saque = await connection.execute(query, [ valor, codCliente]);
+  const saldo = await connection.execute(query, [ valor, codCliente]);
  
-  return saque;
+  return saldo;
 }
 
 const updateDeposito = async (codCliente, valor) => {
@@ -98,6 +98,6 @@ module.exports = {
   // updateClient,
   updateAssest,
   getBalance,
-  updateSaque,
+  editSaldo,
   updateDeposito,
 }

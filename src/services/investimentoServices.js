@@ -66,14 +66,14 @@ const getBalance = async (codCliente) => {
   return salCliente;
 }
 
-const updateSaque = async (codCliente, valor) => {
+const editSaldo = async (codCliente, valor) => {
   const [saldo] = await getBalance(codCliente);
   // console.log('saldo service', saldo);
   if (saldo.saldo < valor) return null;
 
-  const saque = await ativosModels.updateSaque(codCliente, valor);
+  const saldoAlt = await ativosModels.editSaldo(codCliente, valor);
 
-  return saque;
+  return saldoAlt;
 }
 
 const updateDeposito = async (codCliente, valor) => {
@@ -89,6 +89,6 @@ module.exports = {
   // createSell,
   updateAssest,
   getBalance,
-  updateSaque,
+  editSaldo,
   updateDeposito,
 }

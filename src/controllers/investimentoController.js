@@ -74,13 +74,13 @@ const getBalance = async (req, res) => {
   return res.status(200).json(salCliente);
 }
 
-const updateSaque = async (req, res) => {
+const editSaldo = async (req, res) => {
   const { codCliente } = req.params;
   const { valor } = req.body;
  
-  const saque = await ativosServices.updateSaque(codCliente, valor);
+  const saldo = await ativosServices.editSaldo(codCliente, valor);
   
-  if (saque === null) {
+  if (saldo === null) {
     return res.status(404).json({ message: 'Saldo insuficiente' });
   }
     return res.status(200).json({ message: 'Saque realizado com sucesso'});
@@ -103,6 +103,6 @@ module.exports = {
   // createSell,
   // updateClient,
   getBalance,
-  updateSaque,
+  editSaldo,
   updateDeposito,
 }

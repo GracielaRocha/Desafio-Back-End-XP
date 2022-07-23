@@ -24,15 +24,6 @@ const createBuy = async (req, res) => {
 
 }
 
-const updateAssest = async (req, res) => {
-  const { codAtivo } = req.params;
-  const { newQuantity, valorAtivo } = req.body;
- 
-  await ativosServices.updateAssest(codAtivo, newQuantity, valorAtivo);
-
-  return res.status(200).json({ message: 'Quantidade do ativo alterado com sucesso' });
-}
-
 const findByClient = async (req, res) => {
   const { codCliente } = req.params;
   
@@ -63,6 +54,24 @@ const putVender = async (req, res) => {
     return res.status(404).json({ message: 'Quantidade de ativos em carteira insuficiente para venda' });
   }
   return res.status(201).json({ message: 'Venda realizada com sucesso' });
+}
+
+const putSubAtivo = async (req, res) => {
+  const { codAtivo } = req.params;
+  const { newQuantity, valorAtivo } = req.body;
+ 
+  await ativosServices.putSubAtivo(codAtivo, newQuantity, valorAtivo);
+
+  return res.status(200).json({ message: 'Quantidade do ativo alterado com sucesso' });
+};
+
+const putAdiAtivo = async (req, res) => {
+  const { codAtivo } = req.params;
+  const { newQuantity, valorAtivo } = req.body;
+ 
+  const graciela = await ativosServices.putAdiAtivo(codAtivo, newQuantity, valorAtivo);
+  
+  return res.status(200).json({ message: 'Quantidade do ativo alterado com sucesso' });
 }
 
 const getBalance = async (req, res) => {
@@ -98,9 +107,9 @@ module.exports = {
   findByCod,
   createBuy,
   findByClient,
-  updateAssest,
+  putSubAtivo,
   putVender,
-  // updateClient,
+  putAdiAtivo,
   getBalance,
   editSaldo,
   updateDeposito,

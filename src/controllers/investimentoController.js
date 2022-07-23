@@ -53,18 +53,17 @@ const findByClient = async (req, res) => {
 //   return res.status(200).json({ message: 'Alteração realizada com sucesso'});
 // }
 
-// const createSell = async (req, res) => {
-//   const { codCliente, codAtivo, qtdeAtivo } = req.body;
-//   console.log('eu sou req.body', req.body);
+const putVender = async (req, res) => {
+  const { idCarteira } = req.params;
+  const { codCliente, codAtivo, qtVendida, valorAtivo } = req.body;
+  // console.log('eu sou req.body', req.body);
+  const venderAtivo = await ativosServices.putVender(idCarteira, codCliente, codAtivo, qtVendida, valorAtivo);
 
-//   const create = await ativosServices.createSell(codCliente, codAtivo, qtdeAtivo);
-
-//   if (create === null) {
-//     return res.status(404).json({ message: 'Quantidade de ativo a ser vendido maior que a quantidade em carteira'});
-//   }
-
-//   return res.status(201).json(create);
-// }
+  if (venderAtivo === null) {
+    return res.status(404).json({ message: 'Quantidade de ativos em carteira insuficiente para venda' });
+  }
+  return res.status(201).json({ message: 'Venda realizada com sucesso' });
+}
 
 const getBalance = async (req, res) => {
   const { codCliente } = req.params;
@@ -100,7 +99,7 @@ module.exports = {
   createBuy,
   findByClient,
   updateAssest,
-  // createSell,
+  putVender,
   // updateClient,
   getBalance,
   editSaldo,

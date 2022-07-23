@@ -43,13 +43,13 @@ const updateAssest = async (codAtivo, newQuantity, valorAtivo) => {
   return ativo;
 }
 
-// const createSell = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
-//   const query = 'INSERT INTO carteiraDigital.carteira_cliente (codCliente, codAtivo, qtdeAtivo, valorAtivo) VALUES(?, ?, ?)';
+const putVender = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo) => {
+  const query = 'UPDATE carteiraDigital.carteira_cliente SET cliente_id = ?, ativo_id = ?, qtdeAtivo = qtdeAtivo - ?, valorAtivo = ? WHERE idCarteira=?';
 
-//   const [vendaAtivo] = await connection.execute(query, [codCliente, codAtivo, qtdeAtivo, valorAtivo]);
+  const [venderAtivo] = await connection.execute(query, [codCliente, codAtivo, qtVendida, valorAtivo, idCarteira]);
 
-//   return vendaAtivo;
-// }
+  return venderAtivo;
+}
 
 // const getBalance = async (codCliente) => {
 
@@ -94,7 +94,7 @@ module.exports = {
   findByCod, 
   createBuy,
   findByClient,
-  // createSell,
+  putVender,
   // updateClient,
   updateAssest,
   getBalance,

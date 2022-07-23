@@ -10,12 +10,21 @@ const findByCod = async (codAtivo) => {
   return ativo;
 };
 
-const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
+const putComprar = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo) => {
+  console.log('qtVendida', qtVendida);
+  const query = 'UPDATE carteiraDigital.carteira_cliente SET cliente_id = ?, ativo_id = ?, qtdeAtivo = qtdeAtivo + ?, valorAtivo = ? WHERE idCarteira=?';
+
+  const [comprarAtivo] = await connection.execute(query, [codCliente, codAtivo, qtVendida, valorAtivo, idCarteira]);
+
+  return comprarAtivo;
+}
+
+const postComprar = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
   const query = 'INSERT INTO carteiraDigital.carteira_cliente (cliente_id, ativo_id, qtdeAtivo, valorAtivo) VALUES(?, ?, ?, ?)';
 
-  const [compraAtivo] = await connection.execute(query, [codCliente, codAtivo, qtdeAtivo, valorAtivo]);
+  const [comprarAtivo] = await connection.execute(query, [codCliente, codAtivo, qtdeAtivo, valorAtivo]);
   // console.log('console models compraAtivo', compraAtivo);
-  return compraAtivo;
+  return comprarAtivo;
 }
 
 const findByClient = async (codCliente) => {
@@ -98,9 +107,18 @@ const updateDeposito = async (codCliente, valor) => {
   return deposito;
 }
 
+const getAllAtivos = async () => {
+  const query = `SELECT * FROM carteiraDigital.carteira_cliente qtdeAtivo * valorAtivo AS valorTotal;`;
+
+  const ativos = await connection.execute(query);
+
+  return ativos;
+}
+
 module.exports = {
-  findByCod, 
-  createBuy,
+  findByCod,
+  putComprar,
+  postComprar,
   findByClient,
   putVender,
   putAdiAtivo,
@@ -108,4 +126,5 @@ module.exports = {
   getBalance,
   editSaldo,
   updateDeposito,
+  getAllAtivos
 }

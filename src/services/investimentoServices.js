@@ -2,6 +2,7 @@ const ativosModels = require('../models/investimentoModels');
 
 const findByCod = async (codAtivo) => {
   const ativo = await ativosModels.findByCod(codAtivo);
+  console.log(ativo);
 
   if (!ativo) return null;
 
@@ -16,15 +17,25 @@ const findByClient = async (codCliente) => {
   return cliente;
 }
 
-const createBuy = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
-  const ativo = await ativosModels.findByCod(codAtivo);
-  console.log(ativo);
+const putComprar = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo) => {
+  const comprarAtivo = await ativosModels.putComprar(idCarteira, codCliente, codAtivo, qtVendida, valorAtivo);
 
-  if (ativo.quantity < qtdeAtivo) return null;
- // const compraAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
-  const comprarAtivo = await ativosModels.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
-  
   return comprarAtivo;
+};
+
+const postComprar = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
+  const ativo = await findByCod(codAtivo);
+  // console.log(ativo);
+  if (ativo.quantity < qtdeAtivo) return null;
+
+  const cliente = await findByClient(codCliente);
+  // console.log(cliente);
+  const buscarAtivo = cliente.find((item) => item.ativo_id === codAtivo);
+  // console.log('buscarAtivo', buscarAtivo);
+  if (buscarAtivo) {
+    return await putComprar(buscarAtivo.idCarteira, buscarAtivo.cliente_id, buscarAtivo.ativo_id, qtdeAtivo, buscarAtivo.valorAtivo);
+  }
+    return await ativosModels.postComprar(codCliente, codAtivo, qtdeAtivo, valorAtivo);
 }
 
 // const updateClient = async (idCarteira, { qtdeAtivo }) => {
@@ -74,14 +85,17 @@ const editSaldo = async (codCliente, valor) => {
 };
 
 const updateDeposito = async (codCliente, valor) => {
-  const deposito = await ativosModels.updateDeposito(codCliente, valor);
-
-  return deposito;
+  return await ativosModels.updateDeposito(codCliente, valor);
 };
+
+const getAllAtivos = async () => {
+  return await ativosModels.getAllAtivos();
+}
 
 module.exports = {
   findByCod,
-  createBuy,
+  putComprar,
+  postComprar,
   findByClient,
   putVender,
   putSubAtivo,
@@ -89,4 +103,5 @@ module.exports = {
   getBalance,
   editSaldo,
   updateDeposito,
+  getAllAtivos
 }

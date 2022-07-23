@@ -8,7 +8,9 @@ const validateValor = require('./middleware/validateValor');
 router.get('/ativos/:codAtivo', investimento.findByCod);
 router.get('/clientes/:codCliente', investimento.findByClient);
 router.get('/conta/:codCliente', investimento.getBalance);
-router.post('/investimentos/comprar', investimento.createBuy);
+router.get('/investimentos/clientes', investimento.getAllAtivos);
+
+router.post('/investimentos/comprar', investimento.postComprar);
 
 router.put('/investimentos/vender/:idCarteira', investimento.putVender);
 router.put('/conta/saque/:codCliente', validateValor, investimento.editSaldo);

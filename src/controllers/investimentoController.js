@@ -11,13 +11,13 @@ const findByCod = async (req, res) => {
     return res.status(200).json(ativo);
 }
 
-const createBuy = async (req, res) => {
+const postComprar = async (req, res) => {
   const { codCliente, codAtivo, qtdeAtivo, valorAtivo } = req.body;
   // console.log('console controller createBuy', req.body);
 
-  const create = await ativosServices.createBuy(codCliente, codAtivo, qtdeAtivo, valorAtivo);
+  const comprarAtivo = await ativosServices.postComprar(codCliente, codAtivo, qtdeAtivo, valorAtivo);
   // console.log('console controller create', create);
-  if (create === null) {
+  if (comprarAtivo === null) {
     return res.status(404).json({ message: 'Quantidade de ativo a ser comprado maior que a quantidade disponível'});
   }
     return res.status(201).json({ message: 'Compra realizada com sucesso' });
@@ -101,11 +101,17 @@ const updateDeposito = async (req, res) => {
   await ativosServices.updateDeposito(codCliente, valor);
 
   return res.status(200).json({ message: 'Depósito realizado com sucesso'});
-}
+};
+
+const getAllAtivos = async (req, res) => {
+  const ativos = await ativosServices.getAllAtivos();
+
+  return res.status(200).json(ativos);
+};
 
 module.exports = {
   findByCod,
-  createBuy,
+  postComprar,
   findByClient,
   putSubAtivo,
   putVender,
@@ -113,4 +119,5 @@ module.exports = {
   getBalance,
   editSaldo,
   updateDeposito,
+  getAllAtivos
 }

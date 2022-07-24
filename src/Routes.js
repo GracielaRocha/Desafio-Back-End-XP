@@ -3,19 +3,21 @@ const express = require('express');
 const router = express.Router();
 
 const investimento = require('./controllers/investimentoController');
-const validateValor = require('./middleware/validateValor');
+const conta = require('./controllers/contaControllers');
+const validacaoValor = require('./middleware/validacaoValor');
+// const validacaoAtivo = require('./middleware/validacaoAtivo');
 
-router.get('/ativos/:codAtivo', investimento.findByCod);
-router.get('/clientes/:codCliente', investimento.findByClient);
-router.get('/conta/:codCliente', investimento.getBalance);
+router.get('/ativos/:codAtivo', investimento.getAtivo);
+router.get('/clientes/:codCliente', investimento.getCliente);
+router.get('/conta/:codCliente', conta.getSaldo);
 router.get('/investimentos/clientes', investimento.getAllAtivos);
 
 router.post('/investimentos/comprar', investimento.postComprar);
 
 router.put('/investimentos/vender/:idCarteira', investimento.putVender);
-router.put('/conta/saque/:codCliente', validateValor, investimento.editSaldo);
-router.put('/conta/deposito/:codCliente', validateValor, investimento.updateDeposito);
-router.put('/conta/subtrairAtivo/:codAtivo', investimento.putSubAtivo);
-router.put('/conta/adicionarAtivo/:codAtivo', investimento.putAdiAtivo);
+router.put('/conta/saque/:codCliente', validacaoValor, conta.putSaldo);
+router.put('/conta/deposito/:codCliente', validacaoValor, conta.putDeposito);
+router.put('/investimento/subtrairAtivo/:codAtivo', investimento.putSubAtivo);
+router.put('/investimento/adicionarAtivo/:codAtivo', investimento.putAdiAtivo);
 
 module.exports = router;

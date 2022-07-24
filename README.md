@@ -35,10 +35,14 @@ Foi utilizado o banco MySQL para a gestão de dados, e utilizado a linguagem SQL
   <img src="https://www.stickersdevs.com.br/wp-content/uploads/2022/01/nodejs-logo-adesivo-sticker.png" alt="mysql" width="40" height="40"/>
 </a>
 </p>
+
      
 ## Execução API
 
 #### git clone git@github.com:GracielaRocha/Desafio-Back-End-XP.git
 #### cd Desafio-Back-End-XP
 #### npm install
+
+<a href="https://www.linkedin.com/in/gracielasr/"  rel="noreferrer">
+  <img src="https://user-images.githubusercontent.com/93058975/180666923-ea906f2c-6163-4e85-8dcb-63db267e22c3.png" alt="mysql" width="40" height="40"/>
 

@@ -11,7 +11,7 @@ const getAtivo = async (codAtivo) => {
 const getCliente = async (codCliente) => {
   const cliente = await ativosModels.getCliente(codCliente);
 
-  if (!cliente) return null;
+  if (cliente.length === 0) return null;
 
   return cliente;
 };
@@ -24,19 +24,20 @@ const putComprar = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtiv
 
 const postComprar = async (codCliente, codAtivo, qtdeAtivo, valorAtivo) => {
   const ativo = await getAtivo(codAtivo);
-  console.log(ativo);
+  // console.log('ativo', ativo);
   if (!ativo || ativo.quantity < qtdeAtivo) return null;
 
   const cliente = await getCliente(codCliente);
-
-  if (!cliente) return await ativosModels.postComprar(codCliente, codAtivo, qtdeAtivo, valorAtivo); 
-  
-  const buscarAtivo = cliente.find((item) => item.ativo_id === codAtivo);
-  console.log(buscarAtivo);
-  if (buscarAtivo) {
-    return await putComprar(buscarAtivo.idCarteira, buscarAtivo.cliente_id, buscarAtivo.ativo_id, qtdeAtivo, buscarAtivo.valorAtivo);
+  console.log('cliente', cliente);
+  if (cliente !== null) {
+    const buscarAtivo = cliente.find((item) => item.ativo_id === codAtivo);
+    console.log('buscarAtivo', buscarAtivo);
+    if (buscarAtivo !== undefined) {
+      return await putComprar(buscarAtivo.idCarteira, buscarAtivo.cliente_id, buscarAtivo.ativo_id, qtdeAtivo, buscarAtivo.valorAtivo);
+    }
   }
-    return null;
+    return await ativosModels.postComprar(codCliente, codAtivo, qtdeAtivo, valorAtivo); 
+    
 };
 
 const putVender = async (idCarteira, codCliente, codAtivo, qtVendida, valorAtivo) => {

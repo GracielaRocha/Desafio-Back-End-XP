@@ -38,5 +38,7 @@ Foi utilizado o banco MySQL para a gestão de dados, e utilizado a linguagem SQL
      
 ## Execução API
 
-
+#### git clone git@github.com:GracielaRocha/Desafio-Back-End-XP.git
+#### cd Desafio-Back-End-XP
+#### npm install
 

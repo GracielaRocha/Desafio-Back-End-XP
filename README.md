@@ -45,7 +45,7 @@ Foi utilizado o banco MySQL para a gestão de dados, e utilizado a linguagem SQL
 
 
 
-##### Contato
+##### 
 <a href="https://www.linkedin.com/in/gracielasr/"  rel="noreferrer">
   <img src="https://user-images.githubusercontent.com/93058975/180666923-ea906f2c-6163-4e85-8dcb-63db267e22c3.png" alt="mysql" width="40" height="40"/>
 

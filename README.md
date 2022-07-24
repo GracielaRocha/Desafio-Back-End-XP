@@ -35,20 +35,7 @@ Foi utilizado o banco MySQL para a gestão de dados, e utilizado a linguagem SQL
   <img src="https://www.stickersdevs.com.br/wp-content/uploads/2022/01/nodejs-logo-adesivo-sticker.png" alt="mysql" width="40" height="40"/>
 </a>
 </p>
-          
-
-
-## Status do projeto
-Foi desenvolvido os endpoints: 
-Comprar um ativo ou atualizar a quantidade deste ativo na carteira do cliente.
-Vender um ativo ou atualizar a quantidade deste ativo na carteira do cliente.
-Atualizar a quantidade de ativos compradas ou vendidas pelo cliente na carteira de ativos da corretora.
-Atualizar o saldo da conta do cliente quando for realizado um saque ou depósito.
-Atualizar o saldo da conta do cliente quando for realizado uma venda ou compra de ativos.
-Pesquisar relação de ativos por cliente e investimento em cada ativo.
-
-
-
+     
 ## Execução API
 
 
